@@ -6,21 +6,23 @@ import { Equal, Expect } from "./helpers/type-utils";
  * while also making sure the cases don't go red!
  */
 
+
+const Id = {
+  id: z.string().uuid()
+}
+
 const User = z.object({
-  id: z.string().uuid(),
   name: z.string(),
-});
+}).extend(Id)
 
 const Post = z.object({
-  id: z.string().uuid(),
   title: z.string(),
   body: z.string(),
-});
+}).extend(Id)
 
 const Comment = z.object({
-  id: z.string().uuid(),
   text: z.string(),
-});
+}).extend(Id)
 
 type cases = [
   Expect<Equal<z.infer<typeof Comment>, { id: string; text: string }>>,
